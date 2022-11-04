@@ -63,13 +63,8 @@ func (p *PlayerServer) showScore(c *gin.Context) {
 }
 
 func main() {
-	store := StubPlayerStore{
-		map[string]int{
-			"Pepper": 20,
-			"Floyd":  10,
-		},
-	}
-	server := &PlayerServer{&store}
+	store := NewSqlPlayerStore("172.16.1.100", 5432, "appuser", "VMware1!", "app")
+	server := &PlayerServer{store}
 
 	router := gin.Default()
 
