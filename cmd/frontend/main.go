@@ -31,6 +31,7 @@ func (s *SqlPlayerStore) GetPlayerScore(name string) int {
 	score := 0
 	err := s.db.QueryRow(query).Scan(&score)
 	if err != nil {
+		fmt.Println(err.Error())
 		return -1
 	}
 
