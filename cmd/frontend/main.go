@@ -30,6 +30,9 @@ func (s *SqlPlayerStore) GetPlayerScore(name string) int {
 	query := fmt.Sprintf("SELECT score FROM players WHERE name='%s';", name)
 	score := 0
 	err := s.db.QueryRow(query).Scan(&score)
+	if err == sql.ErrNoRows {
+		return 0
+	}
 	if err != nil {
 		fmt.Println(err.Error())
 		return -1
