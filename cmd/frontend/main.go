@@ -10,7 +10,8 @@ import (
 )
 
 type PlayerScore struct {
-	Score int `json:"score,omitempty"`
+	Score int    `json:"score,omitempty"`
+	Name  string `json:"name,omitempty"`
 }
 
 type PlayerStore interface {
@@ -66,7 +67,7 @@ type PlayerServer struct {
 func (p *PlayerServer) showScore(c *gin.Context) {
 	name := c.Param("name")
 	score := p.store.GetPlayerScore(name)
-	scoreJson := PlayerScore{Score: score}
+	scoreJson := PlayerScore{Name: name, Score: score}
 
 	c.JSON(http.StatusOK, scoreJson)
 }
